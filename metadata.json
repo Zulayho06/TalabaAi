@@ -1,0 +1,8 @@
+{
+  "name": "IlmNoma — Talabalar Mustaqil Ishlari Platformasi",
+  "description": "Talabalar uchun maqola, taqdimot va referat ko'rinishidagi mustaqil ishlarni tayyorlash va yuklab olish platformasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

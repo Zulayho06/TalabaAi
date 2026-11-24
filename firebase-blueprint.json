@@ -1,0 +1,223 @@
+{
+  "entities": {
+    "StudentProfile": {
+      "title": "StudentProfile",
+      "description": "Registered university student profile used on independent work cover pages and authentication.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the student."
+        },
+        "fullName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Student full name (F.I.O.)."
+        },
+        "university": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 180,
+          "description": "University or higher education institution name."
+        },
+        "faculty": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160,
+          "description": "Academic faculty or department."
+        },
+        "groupName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "Student group code."
+        },
+        "courseYear": {
+          "type": "string",
+          "enum": ["1-kurs", "2-kurs", "3-kurs", "4-kurs", "Magistratura"],
+          "description": "Current year of study."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 160,
+          "description": "Verified student Google account email."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": [
+        "uid",
+        "fullName",
+        "university",
+        "faculty",
+        "groupName",
+        "courseYear",
+        "email",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AcademicWork": {
+      "title": "AcademicWork",
+      "description": "Generated student independent work in Maqola, Taqdimot, or Referat format.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Unique document ID."
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner student UID."
+        },
+        "format": {
+          "type": "string",
+          "enum": ["maqola", "taqdimot", "referat"],
+          "description": "Independent work output format."
+        },
+        "subject": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 140,
+          "description": "Academic subject name."
+        },
+        "topic": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 240,
+          "description": "Independent work topic."
+        },
+        "language": {
+          "type": "string",
+          "enum": ["uz", "en", "ru"],
+          "description": "Output content language."
+        },
+        "depth": {
+          "type": "string",
+          "enum": ["short", "standard", "extended"],
+          "description": "Requested detail level."
+        },
+        "requirements": {
+          "type": "string",
+          "maxLength": 800,
+          "description": "Optional instructor requirements or outline notes."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 260,
+          "description": "Formatted academic title."
+        },
+        "subtitle": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Optional academic subtitle."
+        },
+        "abstract": {
+          "type": "string",
+          "maxLength": 3000,
+          "description": "Executive abstract or introduction summary."
+        },
+        "keywords": {
+          "type": "array",
+          "description": "Up to 10 academic keywords."
+        },
+        "sections": {
+          "type": "array",
+          "description": "Up to 15 structured sections with heading and paragraphs."
+        },
+        "slides": {
+          "type": "array",
+          "description": "Up to 20 structured presentation slides."
+        },
+        "references": {
+          "type": "array",
+          "description": "Up to 20 scholarly references."
+        },
+        "studentName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120,
+          "description": "Student full name snapshot for cover page."
+        },
+        "university": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 180,
+          "description": "University snapshot for cover page."
+        },
+        "faculty": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160,
+          "description": "Faculty snapshot for cover page."
+        },
+        "groupName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "Group snapshot for cover page."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp."
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "format",
+        "subject",
+        "topic",
+        "language",
+        "depth",
+        "title",
+        "sections",
+        "slides",
+        "references",
+        "studentName",
+        "university",
+        "faculty",
+        "groupName",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/StudentProfile" },
+      "description": "Private student registration profile indexed by Firebase Auth UID."
+    },
+    "/works/{workId}": {
+      "schema": { "$ref": "#/entities/AcademicWork" },
+      "description": "Independent academic works created and owned by registered students."
+    }
+  }
+}
